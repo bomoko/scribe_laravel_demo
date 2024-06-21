@@ -1,0 +1,52 @@
+services:
+    mariadb:
+        image: amazeeio/mariadb
+        labels:
+            lagoon.type: mariadb
+        environment:
+            SERVICE_NAME: worker
+    redis:
+        build:
+            context: .
+            dockerfile: lagoon/redis.dockerfile
+        image: amazeeio/redis-persistent
+        labels:
+            lagoon.type: redis-persistent
+    cli:
+        build:
+            context: .
+            dockerfile: lagoon/cli.dockerfile
+        image: sailonlagoon
+        labels:
+            lagoon.type: cli-persistent
+            lagoon.persistent.name: nginx
+            lagoon.persistent: /app/storage
+        depends_on:
+            - redis
+    php:
+        build:
+            context: .
+            dockerfile: lagoon/php.dockerfile
+            args:
+                CLI_IMAGE: sailonlagoon
+        labels:
+            lagoon.type: nginx-php-persistent
+            lagoon.name: nginx
+            lagoon.persistent: /app/storage/
+        volumes:
+            - './:/app:delegated'
+    nginx:
+        build:
+            context: .
+            dockerfile: lagoon/nginx.dockerfile
+            args:
+                CLI_IMAGE: sailonlagoon
+        labels:
+            lagoon.type: nginx-php-persistent
+            lagoon.name: nginx
+            lagoon.persistent: /app/storage
+        volumes:
+            - './:/app:delegated'
+        depends_on:
+            - cli
+            - redis
