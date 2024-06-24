@@ -70,13 +70,31 @@ if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
   php artisan optimize:clear
 fi
 
+TABLES_EXIST=false
+
+if [ "$SERVICE_NAME" == "cli" ]; then
+  if [ -f "artisan" ]; then
+    TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
+    if [ -z "$TABLES" ]; then
+      TABLES_EXIST=false
+    else
+      TABLES_EXIST=true
+    fi
+  fi
+fi
+
+
 if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
   if [ -f "artisan" ]; then
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
-    php artisan event:cache
-    php artisan optimize
+    if [ "$TABLES_EXIST" = true ]; then
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+      php artisan event:cache
+      php artisan optimize
+    elif
+      echo 'WARNING: There is no production database loaded - skipping bootstrap process. Please run migrations'
+    fi
   fi
 elif [ "$LAGOON_LARAVEL_SEED_DB" == "true" ] && [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "artisan" ]; then
