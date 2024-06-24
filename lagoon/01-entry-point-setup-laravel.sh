@@ -62,13 +62,13 @@ fix-permissions /app/storage/img
 
 cd /app
 
-if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
-  php artisan config:clear
-  php artisan route:clear
-  php artisan view:clear
-  php artisan event:clear
-  php artisan optimize:clear
-fi
+# if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
+#   php artisan config:clear
+#   php artisan route:clear
+#   php artisan view:clear
+#   php artisan event:clear
+#   php artisan optimize:clear
+# fi
 
 TABLES_EXIST=false
 
