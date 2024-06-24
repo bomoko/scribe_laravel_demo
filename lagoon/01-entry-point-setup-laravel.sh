@@ -73,12 +73,16 @@ fi
 TABLES_EXIST=false
 
 if [ "$SERVICE_NAME" == "cli" ]; then
+  echo "In CLI"
   if [ -f "artisan" ]; then
+    echo "Found Artisan"
     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
     if [ -z "$TABLES" ]; then
       TABLES_EXIST=false
+      echo "No tables"
     else
       TABLES_EXIST=true
+      echo "Tables exist"
     fi
   fi
 fi
