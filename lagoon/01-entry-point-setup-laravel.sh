@@ -94,8 +94,8 @@ if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
       php artisan config:cache
       php artisan route:cache
       php artisan view:cache
-      php artisan event:cache
-      php artisan optimize
+      # php artisan event:cache
+      # php artisan optimize
     else
       echo 'WARNING: There is no production database loaded - skipping bootstrap process. Please run migrations'
     fi
