@@ -60,22 +60,23 @@ fix-permissions /app/storage/debugbar
 
 cd /app
 
-# if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
-#   php artisan config:clear
-#   php artisan route:clear
-#   php artisan view:clear
-#   php artisan event:clear
-#   php artisan optimize:clear
-# fi
+if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
+  echo php artisan config:clear
+  echo php artisan route:clear
+  echo php artisan view:clear
+  echo php artisan event:clear
+  echo php artisan optimize:clear
+fi
 
 if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
-  # if [ -f "artisan" ]; then
-  #   php artisan config:cache
-  #   php artisan route:cache
-  #   php artisan view:cache
-  #   php artisan event:cache
-  #   php artisan optimize
-  # fi
+  if [ -f "artisan" ]; then
+    echo "you should run these"
+    echo php artisan config:cache
+    echo php artisan route:cache
+    echo php artisan view:cache
+    echo php artisan event:cache
+    echo php artisan optimize
+  fi
 elif [ "$LAGOON_LARAVEL_SEED_DB" == "true" ] && [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "artisan" ]; then
     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
