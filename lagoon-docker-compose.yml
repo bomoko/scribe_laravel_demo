@@ -1,17 +1,8 @@
 services:
-    mariadb:
-        image: amazeeio/mariadb
+    postgres:
+        image: 'uselagoon/postgres-14-drupal:latest'
         labels:
-            lagoon.type: mariadb
-        environment:
-            SERVICE_NAME: worker
-    redis:
-        build:
-            context: .
-            dockerfile: lagoon/redis.dockerfile
-        image: amazeeio/redis-persistent
-        labels:
-            lagoon.type: redis-persistent
+            lagoon.type: postgres
     cli:
         build:
             context: .
@@ -21,8 +12,6 @@ services:
             lagoon.type: cli-persistent
             lagoon.persistent.name: nginx
             lagoon.persistent: /app/storage
-        depends_on:
-            - redis
     php:
         build:
             context: .
@@ -49,4 +38,3 @@ services:
             - './:/app:delegated'
         depends_on:
             - cli
-            - redis

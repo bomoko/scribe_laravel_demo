@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cefabcb5b8c96418a1bcdea24e3f644",
+    "content-hash": "336d214a91a81d0b7bde94139ce6e282",
     "packages": [
         {
             "name": "brick/math",
@@ -5522,16 +5522,16 @@
         },
         {
             "name": "uselagoon/sailonlagoon",
-            "version": "v0.1.0",
+            "version": "dev-feature/pgsql",
             "source": {
                 "type": "git",
                 "url": "https://github.com/uselagoon/sailonlagoon.git",
-                "reference": "a6bad01d1e6567471344861e1d944b5f32da8eb9"
+                "reference": "e2949f11e6424504a3c3e4b692e4084b2695a2ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uselagoon/sailonlagoon/zipball/a6bad01d1e6567471344861e1d944b5f32da8eb9",
-                "reference": "a6bad01d1e6567471344861e1d944b5f32da8eb9",
+                "url": "https://api.github.com/repos/uselagoon/sailonlagoon/zipball/e2949f11e6424504a3c3e4b692e4084b2695a2ab",
+                "reference": "e2949f11e6424504a3c3e4b692e4084b2695a2ab",
                 "shasum": ""
             },
             "require": {
@@ -5584,7 +5584,7 @@
             ],
             "support": {
                 "issues": "https://github.com/uselagoon/sailonlagoon/issues",
-                "source": "https://github.com/uselagoon/sailonlagoon/tree/v0.1.0"
+                "source": "https://github.com/uselagoon/sailonlagoon/tree/feature/pgsql"
             },
             "funding": [
                 {
@@ -5592,7 +5592,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-18T21:12:35+00:00"
+            "time": "2024-06-25T00:13:02+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -7954,7 +7954,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "uselagoon/sailonlagoon": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
