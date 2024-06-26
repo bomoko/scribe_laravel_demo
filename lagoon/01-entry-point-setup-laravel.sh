@@ -45,18 +45,18 @@ if [ -z "$APP_ENVA" ]; then
       fi
 fi
 
-mkdir -p /app/storage/framework/sessions
-mkdir -p /app/storage/framework/views
-mkdir -p /app/storage/framework/cache
-mkdir -p /app/storage/framework/cache/data
-mkdir -p /app/storage/app/public
-mkdir -p /app/storage/logs
-mkdir -p /app/storage/debugbar
+# mkdir -p /app/storage/framework/sessions
+# mkdir -p /app/storage/framework/views
+# mkdir -p /app/storage/framework/cache
+# mkdir -p /app/storage/framework/cache/data
+# mkdir -p /app/storage/app/public
+# mkdir -p /app/storage/logs
+# mkdir -p /app/storage/debugbar
 
-fix-permissions /app/storage/framework
-fix-permissions /app/storage/app
-fix-permissions /app/storage/logs
-fix-permissions /app/storage/debugbar
+# fix-permissions /app/storage/framework
+# fix-permissions /app/storage/app
+# fix-permissions /app/storage/logs
+# fix-permissions /app/storage/debugbar
 
 # cd /app
 
