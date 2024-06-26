@@ -45,13 +45,30 @@ if [ -z "$APP_ENVA" ]; then
       fi
 fi
 
-# mkdir -p /app/storage/framework/sessions
-# mkdir -p /app/storage/framework/views
-# mkdir -p /app/storage/framework/cache
-# mkdir -p /app/storage/framework/cache/data
-# mkdir -p /app/storage/app/public
-# mkdir -p /app/storage/logs
-# mkdir -p /app/storage/debugbar
+# Function to check if a directory exists and create it if it does not
+check_and_create_dir() {
+    DIR=$1
+
+    if [ -d "$DIR" ]; then
+        echo "Directory '$DIR' already exists."
+    else
+        echo "Directory '$DIR' does not exist. Creating it now."
+        mkdir -p "$DIR"
+        if [ $? -eq 0 ]; then
+            echo "Directory '$DIR' created successfully."
+        else
+            echo "Failed to create directory '$DIR'."
+        fi
+    fi
+}
+
+check_and_create_dir "/app/storage/framework/sessions"
+check_and_create_dir "/app/storage/framework/views"
+check_and_create_dir "/app/storage/framework/cache"
+check_and_create_dir "/app/storage/framework/cache/data"
+check_and_create_dir "/app/storage/app/public"
+check_and_create_dir "/app/storage/logs"
+check_and_create_dir "/app/storage/debugbar"
 
 # fix-permissions /app/storage/framework
 # fix-permissions /app/storage/app
