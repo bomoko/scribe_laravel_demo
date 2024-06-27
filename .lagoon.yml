@@ -26,4 +26,10 @@ tasks:
         service: cli
         shell: bash
         when: LAGOON_ENVIRONMENT_TYPE == "development"
+    - run:
+        name: Echo stuff when in prod
+        command: echo hellllloooo from prod
+        service: cli
+        shell: bash
+        when: LAGOON_ENVIRONMENT_TYPE == "production"
 
