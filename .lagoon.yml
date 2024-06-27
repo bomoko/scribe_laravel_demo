@@ -21,15 +21,15 @@ tasks:
         service: cli
         shell: bash
     - run:
-        name: Echo stuff when not in prod
-        command: echo hellllloooo
+        name: Build caches when pushing to production
+        command: |
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            php artisan optimize
         service: cli
         shell: bash
         when: LAGOON_ENVIRONMENT_TYPE == "development"
-    - run:
-        name: Echo stuff when in prod
-        command: echo hellllloooo from prod
-        service: cli
-        shell: bash
-        when: LAGOON_ENVIRONMENT_TYPE == "production"
+
 
