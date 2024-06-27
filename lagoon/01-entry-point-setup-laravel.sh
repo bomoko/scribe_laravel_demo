@@ -45,70 +45,15 @@ if [ -z "$APP_ENVA" ]; then
       fi
 fi
 
-# Function to check if a directory exists and create it if it does not
-check_and_create_dir() {
-    DIR=$1
+mkdir -p /app/storage/framework/sessions
+mkdir -p /app/storage/framework/views
+mkdir -p /app/storage/framework/cache
+mkdir -p /app/storage/framework/cache/data
+mkdir -p /app/storage/app/public
+mkdir -p /app/storage/logs
+mkdir -p /app/storage/debugbar
 
-    if [ -d "$DIR" ]; then
-        echo "Directory '$DIR' already exists."
-    else
-        echo "Directory '$DIR' does not exist. Creating it now."
-        mkdir -p "$DIR"
-        if [ $? -eq 0 ]; then
-            echo "Directory '$DIR' created successfully."
-        else
-            echo "Failed to create directory '$DIR'."
-        fi
-    fi
-}
-
-check_and_create_dir "/app/storage/framework/sessions"
-check_and_create_dir "/app/storage/framework/views"
-check_and_create_dir "/app/storage/framework/cache"
-check_and_create_dir "/app/storage/framework/cache/data"
-check_and_create_dir "/app/storage/app/public"
-check_and_create_dir "/app/storage/logs"
-check_and_create_dir "/app/storage/debugbar"
-
-# fix-permissions /app/storage/framework
-# fix-permissions /app/storage/app
-# fix-permissions /app/storage/logs
-# fix-permissions /app/storage/debugbar
-
-# cd /app
-
-# if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
-#   echo php artisan config:clear
-#   echo php artisan route:clear
-#   echo php artisan view:clear
-#   echo php artisan event:clear
-#   echo php artisan optimize:clear
-# fi
-
-# if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
-#   if [ -f "artisan" ]; then
-#     echo "you should run these"
-#     echo php artisan config:cache
-#     echo php artisan route:cache
-#     echo php artisan view:cache
-#     echo php artisan event:cache
-#     echo php artisan optimize
-#   fi
-# elif [ "$LAGOON_LARAVEL_SEED_DB" == "true" ] && [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
-#   if [ -f "artisan" ]; then
-#     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
-
-#     if [ -z "$TABLES" ]; then
-#       echo "Loading up a new database"
-#       php artisan db:seed
-#     else
-#       echo "There is already a database loaded up"
-#     fi
-#   else
-#     echo "Skipping DB loading check - Laravel is not installed"
-#   fi
-# fi
-
+cd /app
 
 if [ -f "artisan" ] && [ -z "$APP_KEY" ]; then
       APP_KEY=`php artisan key:generate --show --no-ansi`

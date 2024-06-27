@@ -1,4 +1,4 @@
-FROM uselagoon/lagoon-cli:v0.21.0 as LAGOONCLI
+FROM uselagoon/lagoon-cli:latest as LAGOONCLI
 FROM uselagoon/php-8.3-cli
 
 #######################################################
@@ -23,11 +23,6 @@ RUN fix-permissions /home/.config/psysh
 #######################################################
 # Lagoon CLI
 COPY --from=LAGOONCLI /lagoon /usr/bin/lagoon
-
-#######################################################
-# Install PgSQL client
-#######################################################
-RUN apk add postgresql-client
 
 # Lagoon Sync
 RUN DOWNLOAD_PATH=$(curl -sL "https://api.github.com/repos/uselagoon/lagoon-sync/releases/latest" | grep "browser_download_url" | cut -d \" -f 4 | grep linux_386) && wget -O /usr/bin/lagoon-sync $DOWNLOAD_PATH && chmod +x /usr/bin/lagoon-sync
