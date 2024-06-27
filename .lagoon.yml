@@ -20,3 +20,10 @@ tasks:
         command: php artisan -n cache:clear && php artisan -n route:clear && php artisan -n view:cache
         service: cli
         shell: bash
+    - run:
+        name: Echo stuff when not in prod
+        command: echo hellllloooo
+        service: cli
+        shell: bash
+        when: LAGOON_ENVIRONMENT_TYPE == "development"
+
