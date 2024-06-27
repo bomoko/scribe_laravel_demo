@@ -5526,12 +5526,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/uselagoon/sailonlagoon.git",
-                "reference": "ab88494b13bfcc5a971dcc25366c25c87096261e"
+                "reference": "34cb6bfc7a8acdb905152352e0269f68343431b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uselagoon/sailonlagoon/zipball/ab88494b13bfcc5a971dcc25366c25c87096261e",
-                "reference": "ab88494b13bfcc5a971dcc25366c25c87096261e",
+                "url": "https://api.github.com/repos/uselagoon/sailonlagoon/zipball/34cb6bfc7a8acdb905152352e0269f68343431b3",
+                "reference": "34cb6bfc7a8acdb905152352e0269f68343431b3",
                 "shasum": ""
             },
             "require": {
@@ -5592,7 +5592,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-27T00:53:45+00:00"
+            "time": "2024-06-27T02:03:21+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
