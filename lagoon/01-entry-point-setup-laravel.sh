@@ -45,6 +45,9 @@ if [ -z $APP_ENVA ]; then
       fi
 fi
 
+
+# We create some default folders here, since /app/storage is a persistent volume
+
 mkdir -p /app/storage/framework/sessions
 mkdir -p /app/storage/framework/views
 mkdir -p /app/storage/framework/cache
@@ -52,70 +55,9 @@ mkdir -p /app/storage/framework/cache/data
 mkdir -p /app/storage/app/public
 mkdir -p /app/storage/logs
 mkdir -p /app/storage/debugbar
-mkdir -p /app/storage/img
-
-fix-permissions /app/storage/framework
-fix-permissions /app/storage/app
-fix-permissions /app/storage/logs
-fix-permissions /app/storage/debugbar
-fix-permissions /app/storage/img
-
-cd /app
-
-# if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
-#   php artisan config:clear
-#   php artisan route:clear
-#   php artisan view:clear
-#   php artisan event:clear
-#   php artisan optimize:clear
-# fi
-
-TABLES_EXIST=false
-
-if [ "$SERVICE_NAME" == "cli" ]; then
-  echo "In CLI"
-  if [ -f "artisan" ]; then
-    echo "Found Artisan"
-    TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
-    if [ -z "$TABLES" ]; then
-      TABLES_EXIST=false
-      echo "No tables"
-    else
-      TABLES_EXIST=true
-      echo "Tables exist"
-    fi
-  fi
-fi
 
 
-if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
-  if [ -f "artisan" ]; then
-    if [ "$TABLES_EXIST" = true ]; then
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-      # php artisan event:cache
-      # php artisan optimize
-    else
-      echo 'WARNING: There is no production database loaded - skipping bootstrap process. Please run migrations'
-    fi
-  fi
-elif [ "$LAGOON_LARAVEL_SEED_DB" == "true" ] && [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
-  if [ -f "artisan" ]; then
-    TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
-
-    if [ -z "$TABLES" ]; then
-      echo "Loading up a new database"
-      php artisan db:seed
-    else
-      echo "There is already a database loaded up"
-    fi
-  else
-    echo "Skipping DB loading check - Laravel is not installed"
-  fi
-fi
-
-
+# Set the $APP_KEY env var if it's not specified as an environment variable
 if [ -f "artisan" ] && [ -z "$APP_KEY" ]; then
       APP_KEY=`php artisan key:generate --show --no-ansi`
       echo "Settng APP_KEY to $APP_KEY"
