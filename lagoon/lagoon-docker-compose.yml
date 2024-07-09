@@ -7,14 +7,14 @@ services:
             SERVICE_NAME: worker
     redis:
         build:
-            context: .
+            context: ../
             dockerfile: lagoon/redis.dockerfile
         image: amazeeio/redis-persistent
         labels:
             lagoon.type: redis-persistent
     cli:
         build:
-            context: .
+            context: ../
             dockerfile: lagoon/cli.dockerfile
         image: sailonlagoon
         labels:
@@ -25,7 +25,7 @@ services:
             - redis
     php:
         build:
-            context: .
+            context: ../
             dockerfile: lagoon/php.dockerfile
             args:
                 CLI_IMAGE: sailonlagoon
@@ -37,7 +37,7 @@ services:
             - './:/app:delegated'
     nginx:
         build:
-            context: .
+            context: ../
             dockerfile: lagoon/nginx.dockerfile
             args:
                 CLI_IMAGE: sailonlagoon
